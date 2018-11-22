@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'neo-completer';
+
+  // tslint:disable-next-line:max-line-length
+  protected searchData = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett' ];
+
+  constructor() { }
+
+  public onSelected($event) {
+    console.log($event);
+  }
 }

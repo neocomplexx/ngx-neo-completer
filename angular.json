@@ -133,6 +133,41 @@
           }
         }
       }
+    },
+    "ngx-neo-completer": {
+      "root": "projects/ngx-neo-completer",
+      "sourceRoot": "projects/ngx-neo-completer/src",
+      "projectType": "library",
+      "prefix": "neo",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-neo-completer/tsconfig.lib.json",
+            "project": "projects/ngx-neo-completer/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-neo-completer/src/test.ts",
+            "tsConfig": "projects/ngx-neo-completer/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-neo-completer/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-neo-completer/tsconfig.lib.json",
+              "projects/ngx-neo-completer/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "neo-completer"

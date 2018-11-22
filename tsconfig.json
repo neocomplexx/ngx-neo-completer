@@ -16,6 +16,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-neo-completer": [
+        "dist/ngx-neo-completer"
+      ],
+      "ngx-neo-completer/*": [
+        "dist/ngx-neo-completer/*"
+      ]
+    }
   }
 }

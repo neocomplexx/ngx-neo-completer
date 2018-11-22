@@ -1,0 +1,45 @@
+.completer-dropdown {
+    border-color: #ececec;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0px;
+    width: calc(100% - 30px);
+    cursor: pointer;
+    z-index: 9999;
+    position: absolute;
+    background-color: #ffffff;
+    max-height: 200px; height: 200px; overflow-y:auto; overflow-x:hidden;
+}
+
+.completer-row {
+    padding-left: 12px;
+	padding-right: 12px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+    color: #000000;
+    width: 100%;
+}
+
+.completer-selected-row {
+    background-color: lightblue;
+    color: #ffffff;
+}
+
+.completer-description {
+    font-size: 14px;
+}
+
+.completer-image-default {
+    width: 16px; 
+    height: 16px;
+    background-image: url("demo/res/img/default.png");
+}
+
+.completer-image-holder {
+    float: left;
+    width: 10%;
+}
+.completer-item-text-image {
+    float: right;
+    width: 90%;
+}
