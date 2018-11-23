@@ -1,5 +1,5 @@
 {
-  "name": "ngx-neo-completer",
+  "name": "@neocomplexx/ngx-neo-completer",
   "version": "7.0.0",
   "peerDependencies": {
     "@angular/common": "^7.0.0",
@@ -9,11 +9,19 @@
     "name": "NeoComplexx",
     "email": "info@neocomplexx.com"
   },
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/neocomplexx/ngx-neo-completer"
+  },
+  "bugs": {
+    "url": "https://github.com/neocomplexx/ngx-neo-completer/issues"
+  },
   "keywords": [
     "Angular",
     "Auto Completer",
     "Library",
-    "Completer"
+    "Completer",
+    "NeoComplexx"
   ],
   "license": "MIT"
 }
