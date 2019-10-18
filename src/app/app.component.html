@@ -7,11 +7,16 @@
   </div>
   <h2>Here are some usage examples: </h2>
   
-  <div class="form-group">
+<!--   <div class="form-group">
     <label for="exampleInput">Value</label>
     <neo-completer name='autocomplete' (selected)="onSelected($event)" [clearSelected]="true" [placeholder]="'Write a name'"
     [autofocus]="true" [inputClass]="'form-control'" [(ngModel)]="searchStr" [datasource]="searchData" [minSearchLength]="3"></neo-completer>
+  </div> -->
 
+  <div class="form-group">
+    <neo-completer-mat name='autocomplete' (selected)="onSelected($event)" [clearSelected]="true"
+      [placeholder]="'Write a name'" [autofocus]="true" [(ngModel)]="searchStr" [datasource]="searchData"
+      [minSearchLength]="3"></neo-completer-mat>
   </div>
 
   </div>

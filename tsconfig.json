@@ -23,6 +23,12 @@
       ],
       "ngx-neo-completer/*": [
         "dist/ngx-neo-completer/*"
+      ],
+      "ngx-neo-completer-mat": [
+        "dist/ngx-neo-completer-mat"
+      ],
+      "ngx-neo-completer-mat/*": [
+        "dist/ngx-neo-completer-mat/*"
       ]
     }
   }
