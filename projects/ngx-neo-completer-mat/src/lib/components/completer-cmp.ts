@@ -22,7 +22,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
     // tslint:disable:max-line-length
     selector: 'neo-completer-mat',
     template: `
-    <mat-form-field [ngClass]="formFieldClass">
+    <mat-form-field [ngClass]="formFieldClass" [appearance]="appearance">
         <div class="completer-holder" ctrCompleter>
             <input matInput #ctrInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
                 [(ngModel)]="searchStr" (ngModelChange)="onChange($event)" [attr.name]="inputName" [placeholder]="placeholder"
@@ -95,6 +95,7 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     @Input() public initialValue: any;
     @Input() public autoHighlight = false;
     @Input() public autoSelectOnEnter = true;
+    @Input() public appearance = '';
 
     @Output() public selected = new EventEmitter<CompleterItem>();
     @Output() public highlighted = new EventEmitter<CompleterItem>();
