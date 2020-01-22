@@ -23,6 +23,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
     selector: 'neo-completer-mat',
     template: `
     <mat-form-field [ngClass]="formFieldClass" [appearance]="appearance">
+        <mat-label *ngIf="appearance">{{placeholder}}</mat-label>
         <div class="completer-holder" ctrCompleter>
             <input matInput #ctrInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
                 [(ngModel)]="searchStr" (ngModelChange)="onChange($event)" [attr.name]="inputName" [placeholder]="placeholder"
