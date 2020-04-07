@@ -1,6 +1,8 @@
 'use strict';
-import { AfterViewChecked, ChangeDetectorRef, Component, Input, Output, EventEmitter,
-     OnInit, ViewChild, forwardRef, AfterViewInit, ElementRef } from '@angular/core';
+import {
+    AfterViewChecked, ChangeDetectorRef, Component, Input, Output, EventEmitter,
+    OnInit, ViewChild, forwardRef, AfterViewInit, ElementRef
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { CtrCompleter } from '../directives/ctr-completer';
@@ -25,7 +27,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
     <mat-form-field [ngClass]="formFieldClass" [appearance]="appearance">
         <mat-label *ngIf="appearance">{{placeholder}}</mat-label>
         <div class="completer-holder" ctrCompleter>
-            <input matInput #ctrInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
+            <input [required]="required" matInput #ctrInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
                 [(ngModel)]="searchStr" (ngModelChange)="onChange($event)" [attr.name]="inputName" [placeholder]="placeholder"
                 [attr.maxlength]="maxChars" [tabindex]="fieldTabindex" [disabled]="disableInput"
                 [clearSelected]="clearSelected" [clearUnselected]="clearUnselected"
@@ -73,6 +75,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
 // tslint:disable-next-line:component-class-suffix
 export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChecked, AfterViewInit {
     @Input() public dataService: CompleterData;
+    @Input() public required: boolean;
     @Input() public inputName = '';
     @Input() public inputId = '';
     @Input() public pause = PAUSE;

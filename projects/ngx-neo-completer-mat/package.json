@@ -1,6 +1,6 @@
 {
   "name": "@neocomplexx/ngx-neo-completer-mat",
-  "version": "7.0.2",
+  "version": "7.0.3",
   "peerDependencies": {
     "@angular/material": "^7.2.1",
     "@angular/common": "^7.0.0",
@@ -12,7 +12,7 @@
     "name": "NeoComplexx",
     "email": "info@neocomplexx.com"
   },
-   "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/neocomplexx/ngx-neo-completer"
   },
