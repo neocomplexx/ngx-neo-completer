@@ -1,6 +1,6 @@
 {
   "name": "neo-completer",
-  "version": "8.0.0",
+  "version": "9.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -11,17 +11,17 @@
     "copy-license": "cp ./LICENSE ./dist/ngx-neo-completer",
     "copy-readme": "cp ./README.md ./dist/ngx-neo-completer",
     "copy-files": "npm run copy-license && npm run copy-readme",
-    "build_lib": "ng build ngx-neo-completer",
+    "build_lib": "ng build ngx-neo-completer --prod",
     "npm_pack": "cd dist/ngx-neo-completer && npm pack",
     "package": "npm run build_lib && npm run copy-files && npm run npm_pack",
-    "debug": "ng build ngx-neo-completer && ng serve --vendorSourceMap",
+    "debug": "npm run build_lib && ng serve --vendorSourceMap",
     "copy-license_mat": "cp ./LICENSE ./dist/ngx-neo-completer-mat",
     "copy-readme_mat": "cp ./README.md ./dist/ngx-neo-completer-mat",
     "copy-files_mat": "npm run copy-license_mat && npm run copy-readme_mat",
-    "build_lib_mat": "ng build ngx-neo-completer-mat",
+    "build_lib_mat": "ng build ngx-neo-completer-mat --prod",
     "npm_pack_mat": "cd dist/ngx-neo-completer-mat && npm pack",
     "package_mat": "npm run build_lib_mat && npm run copy-files_mat && npm run npm_pack_mat",
-    "debug_mat": "ng build ngx-neo-completer-mat && ng serve --vendorSourceMap"
+    "debug_mat": "npm run build_lib_mat && ng serve --vendorSourceMap"
   },
   "private": false,
   "dependencies": {
@@ -35,7 +35,7 @@
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.4.1",
     "rxjs": "~6.5.5",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -54,10 +54,10 @@
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.0.0",
     "karma-chrome-launcher": "~2.2.0",
-    "karma-coverage-istanbul-reporter": "^2.0.6",
+    "karma-coverage-istanbul-reporter": "^2.1.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "ng-packagr": "^9.0.0",
+    "ng-packagr": "^9.1.5",
     "protractor": "^5.4.4",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
