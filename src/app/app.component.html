@@ -6,17 +6,22 @@
     </h1>
   </div>
   <h2>Here are some usage examples: </h2>
-  
-<!--   <div class="form-group">
-    <label for="exampleInput">Value</label>
-    <neo-completer name='autocomplete' (selected)="onSelected($event)" [clearSelected]="true" [placeholder]="'Write a name'"
-    [autofocus]="true" [inputClass]="'form-control'" [(ngModel)]="searchStr" [datasource]="searchData" [minSearchLength]="3"></neo-completer>
-  </div> -->
 
   <div class="form-group">
-    <neo-completer-mat name='autocomplete' (selected)="onSelected($event)" [clearSelected]="true" [appearance]="'outline'"
-      [placeholder]="'Write a name'" [autofocus]="true" [(ngModel)]="searchStr" [datasource]="searchData"
-      [minSearchLength]="3"></neo-completer-mat>
+    <label for="exampleInput">Value</label>
+    <neo-completer class="completer-limit" [inputClass]="'form-control'" [inputId]="'exampleInput'"
+      [inputName]="'exampleInput'" name="autocomplete" [openOnFocus]="true" [openOnClick]="false"
+      [fillHighlighted]="false" [autoHighlight]="true" [autoSelectOnEnter]="false" (selected)="onSelected($event)"
+      [clearSelected]="false" [textNoResults]="'Sin resultados'" (keydown)="onKeyDown($event)"
+      [placeholder]="'Write a name'" [disabled]="false" [autofocus]="true" [(ngModel)]="searchStr"
+      [datasource]="searchData" [minSearchLength]="0">
+    </neo-completer>
   </div>
 
-  </div>
+  <!-- <div class="form-group">
+    <neo-completer-mat name='autocomplete' (selected)="onSelected($event)" [clearSelected]="true" [appearance]="'outline'"
+      [placeholder]="'Write a name'" [autofocus]="true" [(ngModel)]="searchStr" [datasource]="searchData"
+      [minSearchLength]="2"></neo-completer-mat>
+  </div> -->
+
+</div>

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-//import { NgxNeoCompleterModule } from 'ngx-neo-completer';
+import { NgxNeoCompleterModule } from 'ngx-neo-completer';
 import { NgxNeoCompleterMatModule } from 'ngx-neo-completer-mat';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
     BrowserAnimationsModule,
     FormsModule,
     NgxNeoCompleterMatModule.forRoot(),
-    //NgxNeoCompleterModule.forRoot(),
+    NgxNeoCompleterModule.forRoot(),
     MatInputModule
   ],
   providers: [],

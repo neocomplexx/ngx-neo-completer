@@ -17,4 +17,8 @@ export class AppComponent {
   public onSelected($event) {
     console.log($event);
   }
+
+  public onKeyDown($event) {
+    console.log($event);
+  }
 }
