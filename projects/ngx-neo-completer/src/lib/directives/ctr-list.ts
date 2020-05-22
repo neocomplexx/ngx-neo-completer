@@ -1,8 +1,10 @@
-import { ChangeDetectorRef, Directive, EmbeddedViewRef, Host, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, Host, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import type { EmbeddedViewRef, OnInit } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 
-import { CtrCompleter, CompleterList } from './ctr-completer';
+import { CtrCompleter } from './ctr-completer';
+import type { CompleterList } from './ctr-completer';
 import { CompleterData } from '../services/completer-data';
 import { CompleterItem } from '../components/completer-item';
 import { MIN_SEARCH_LENGTH, PAUSE, CLEAR_TIMEOUT, isNil } from '../globals';

@@ -1,6 +1,6 @@
 'use strict';
-import { AfterViewChecked, ChangeDetectorRef, Component, Input, Output, EventEmitter,
-     OnInit, ViewChild, forwardRef, AfterViewInit, ElementRef } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, Output, EventEmitter, ViewChild, forwardRef, ElementRef } from '@angular/core';
+import type { AfterViewInit, OnInit, AfterViewChecked } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { CtrCompleter } from '../directives/ctr-completer';

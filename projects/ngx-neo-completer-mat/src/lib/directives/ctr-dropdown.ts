@@ -1,7 +1,9 @@
-import { AfterViewInit, Directive, ElementRef, Host, HostListener, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Host, HostListener } from '@angular/core';
+import type { AfterViewInit, OnDestroy } from '@angular/core';
 
 import { CompleterItem } from '../components/completer-item';
-import { CtrCompleter, CompleterDropdown } from './ctr-completer';
+import { CtrCompleter } from './ctr-completer';
+import type { CompleterDropdown } from './ctr-completer';
 import { isNil } from '../globals';
 
 

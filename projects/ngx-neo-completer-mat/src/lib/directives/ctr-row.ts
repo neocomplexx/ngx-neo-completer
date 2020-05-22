@@ -1,7 +1,9 @@
-import { Directive, ElementRef, Host, HostListener, Input, Renderer2, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Host, HostListener, Input, Renderer2 } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 
 import { CompleterItem } from '../components/completer-item';
-import { CtrDropdown, CtrRowElement, CtrRowItem } from './ctr-dropdown';
+import { CtrDropdown, CtrRowItem } from './ctr-dropdown';
+import type { CtrRowElement } from './ctr-dropdown';
 
 @Directive({
     selector: '[ctrRow]',
