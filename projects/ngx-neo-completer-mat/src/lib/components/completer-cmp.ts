@@ -111,8 +111,8 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     @Output() public keyup: EventEmitter<any> = new EventEmitter();
     @Output() public keydown: EventEmitter<any> = new EventEmitter();
 
-    @ViewChild(CtrCompleter) public completer: CtrCompleter;
-    @ViewChild('ctrInput') public ctrInput: ElementRef;
+    @ViewChild(CtrCompleter, { static: true }) public completer: CtrCompleter;
+    @ViewChild('ctrInput', { static: true }) public ctrInput: ElementRef;
 
     public searchStr = '';
     public control = new FormControl('');
