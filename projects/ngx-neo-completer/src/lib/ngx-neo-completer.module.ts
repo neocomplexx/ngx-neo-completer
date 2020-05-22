@@ -41,7 +41,7 @@ import { RemoteDataFactory } from './services/remote-data-factory';
   ]
 })
 export class NgxNeoCompleterModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<NgxNeoCompleterModule> {
     return {
       ngModule: NgxNeoCompleterModule,
       providers: [

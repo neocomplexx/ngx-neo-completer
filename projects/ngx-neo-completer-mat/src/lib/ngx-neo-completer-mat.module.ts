@@ -42,7 +42,7 @@ import { MatInputModule } from '@angular/material/input';
   ]
 })
 export class NgxNeoCompleterMatModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<NgxNeoCompleterMatModule> {
     return {
       ngModule: NgxNeoCompleterMatModule,
       providers: [
