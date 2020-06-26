@@ -13,6 +13,8 @@ import { CompleterService } from './services/completer-service';
 import { LocalDataFactory } from './services/local-data-factory';
 import { RemoteDataFactory } from './services/remote-data-factory';
 import { MatInputModule } from '@angular/material/input';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { MatInputModule } from '@angular/material/input';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    MatInputModule
+    MatInputModule,
+    MatChipsModule,
+    MatIconModule
   ],
   declarations: [
     CompleterListItemCmp,

@@ -27,7 +27,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
     <mat-form-field [ngClass]="formFieldClass" [appearance]="appearance">
         <mat-label *ngIf="appearance">{{placeholder}}</mat-label>
         <div class="completer-holder" ctrCompleter>
-            <input [required]="required" matInput #ctrInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
+            <input #ctrInput [hidden]="_originalObject" [required]="required" matInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
                 [(ngModel)]="searchStr" (ngModelChange)="onChange($event)" [attr.name]="inputName" [placeholder]="placeholder"
                 [attr.maxlength]="maxChars" [tabindex]="fieldTabindex" [disabled]="disableInput"
                 [clearSelected]="clearSelected" [clearUnselected]="clearUnselected"
@@ -67,7 +67,13 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
                 </div>
             </div>
         </div>
-        </mat-form-field>
+        <div *ngIf="_originalObject" class="completer-holder">
+            <mat-chip [selectable]="true" [removable]="true" (removed)="removeItem()">
+                <span class="">{{searchStr}}</span>
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+        </div>
+    </mat-form-field>
     `,
     styleUrls: ['completer-cmp.scss'],
     providers: [COMPLETER_CONTROL_VALUE_ACCESSOR]
@@ -126,6 +132,8 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     private _focus = false;
     private _open = false;
 
+    private _originalObject: any;
+
     constructor(private completerService: CompleterService, private cdr: ChangeDetectorRef) { }
 
     get value(): any { return this.searchStr; }
@@ -148,8 +156,10 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
         if (this._focus) {
             setTimeout(
                 () => {
-                    this.ctrInput.nativeElement.focus();
-                    this._focus = false;
+                    if (this.ctrInput) {
+                        this.ctrInput.nativeElement.focus();
+                        this._focus = false;
+                    }
                 },
                 0
             );
@@ -207,6 +217,8 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
 
     public ngOnInit() {
         this.completer.selected.subscribe((item: CompleterItem) => {
+            this._originalObject = (item) ? item.originalObject : undefined;
+            if (!this._originalObject) this.searchStr = undefined;
             this.selected.emit(item);
         });
         this.completer.highlighted.subscribe((item: CompleterItem) => {
@@ -216,6 +228,18 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
             this._open = isOpen;
             this.opened.emit(isOpen);
         });
+    }
+
+    public removeItem() {
+        this._originalObject = undefined;
+        this.searchStr = undefined;
+        this.selected.emit(null);
+        setTimeout(() => {
+            if (this.ctrInput) {
+                this.ctrInput.nativeElement.focus();
+                this._focus = false;
+            }
+        }, 10);
     }
 
     public onBlur() {
