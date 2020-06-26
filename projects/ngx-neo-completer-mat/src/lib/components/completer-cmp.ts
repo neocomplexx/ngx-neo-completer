@@ -134,6 +134,7 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     private _focus = false;
     private _open = false;
 
+    private onlyOnInit = true;
     private _originalObject: any;
 
     constructor(private completerService: CompleterService, private cdr: ChangeDetectorRef) { }
@@ -155,6 +156,10 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     }
 
     public ngAfterViewChecked(): void {
+        if (this.onlyOnInit && this.searchStr && this.searchStr.length > 0 && !this._originalObject) {
+            this.onlyOnInit = false;
+            setTimeout(() => this._originalObject = this.searchStr, 10);
+        }
         if (this._focus) {
             setTimeout(
                 () => {
