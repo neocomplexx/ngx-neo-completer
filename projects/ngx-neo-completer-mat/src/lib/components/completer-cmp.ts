@@ -27,7 +27,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
     <mat-form-field [ngClass]="formFieldClass" [appearance]="appearance">
         <mat-label *ngIf="appearance">{{placeholder}}</mat-label>
         <div class="completer-holder" ctrCompleter>
-            <input #ctrInput [hidden]="_originalObject" [required]="required" matInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
+            <input #ctrInput [hidden]="originalObject" [required]="required" matInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
                 [(ngModel)]="searchStr" (ngModelChange)="onChange($event)" [attr.name]="inputName" [placeholder]="placeholder"
                 [attr.maxlength]="maxChars" [tabindex]="fieldTabindex" [disabled]="disableInput"
                 [clearSelected]="clearSelected" [clearUnselected]="clearUnselected"
@@ -67,7 +67,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
                 </div>
             </div>
         </div>
-        <div *ngIf="_originalObject" class="completer-holder">
+        <div *ngIf="originalObject" class="completer-holder">
             <mat-chip-list>
                 <mat-chip [selectable]="true" [removable]="true" (removed)="removeItem()">
                     <span class="">{{searchStr}}</span>
@@ -128,14 +128,14 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     public displayNoResults = true;
     public _textNoResults = TEXT_NO_RESULTS;
     public _textSearching = TEXT_SEARCHING;
+    public originalObject: any;
 
     private _onTouchedCallback: () => void = noop;
     private _onChangeCallback: (_: any) => void = noop;
     private _focus = false;
     private _open = false;
 
-    private onlyOnInit = true;
-    private _originalObject: any;
+    private _onlyOnInit = true;
 
     constructor(private completerService: CompleterService, private cdr: ChangeDetectorRef) { }
 
@@ -156,9 +156,9 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     }
 
     public ngAfterViewChecked(): void {
-        if (this.onlyOnInit && this.searchStr && this.searchStr.length > 0 && !this._originalObject) {
-            this.onlyOnInit = false;
-            setTimeout(() => this._originalObject = this.searchStr, 10);
+        if (this._onlyOnInit && this.searchStr && this.searchStr.length > 0 && !this.originalObject) {
+            this._onlyOnInit = false;
+            setTimeout(() => this.originalObject = this.searchStr, 10);
         }
         if (this._focus) {
             setTimeout(
@@ -224,8 +224,8 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
 
     public ngOnInit() {
         this.completer.selected.subscribe((item: CompleterItem) => {
-            this._originalObject = (item) ? item.originalObject : undefined;
-            if (!this._originalObject) this.searchStr = undefined;
+            this.originalObject = (item) ? item.originalObject : undefined;
+            if (!this.originalObject) this.searchStr = undefined;
             this.selected.emit(item);
         });
         this.completer.highlighted.subscribe((item: CompleterItem) => {
@@ -238,7 +238,7 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     }
 
     public removeItem() {
-        this._originalObject = undefined;
+        this.originalObject = undefined;
         this.searchStr = undefined;
         this.selected.emit(null);
         setTimeout(() => {
