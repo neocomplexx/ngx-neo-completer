@@ -69,7 +69,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
         </div>
         <div *ngIf="originalObject" class="completer-holder">
             <mat-chip-list>
-                <mat-chip [selectable]="true" [removable]="true" (removed)="removeItem()">
+                <mat-chip [disabled]="disableInput" [selectable]="true" [removable]="true" (removed)="removeItem()">
                     <span class="">{{searchStr}}</span>
                     <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
