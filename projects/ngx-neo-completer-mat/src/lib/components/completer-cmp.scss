@@ -43,7 +43,7 @@
 .completer-image-default {
   width: 16px;
   height: 16px;
-  background-image: url("demo/res/img/default.png");
+ // background-image: url("demo/res/img/default.png");
 }
 
 .completer-image-holder {
@@ -54,4 +54,23 @@
 .completer-item-text-image {
   float: right;
   width: 90%;
+}
+
+
+.mat-standard-chip .mat-chip-remove.mat-icon{
+  width: 16px!important;
+  height: 16px!important;
+}
+
+.mat-chip .mat-chip-remove.mat-icon, .mat-chip .mat-chip-trailing-icon.mat-icon {
+  font-size: 16px!important;
+}
+
+.mat-standard-chip {
+  min-height: 24px!important;
+  font-size: 14px!important;
+}
+
+div.mat-chip-list-wrapper {
+  margin: -7px!important;
 }
