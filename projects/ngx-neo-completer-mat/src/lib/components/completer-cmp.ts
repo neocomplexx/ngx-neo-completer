@@ -27,7 +27,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
     <mat-form-field [ngClass]="formFieldClass" [appearance]="appearance">
         <mat-label *ngIf="appearance">{{placeholder}}</mat-label>
         <div class="completer-holder" ctrCompleter>
-            <input #ctrInput [hidden]="originalObject" [required]="required" matInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
+            <input #ctrInput *ngIf="!originalObject" [required]="required" matInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
                 [(ngModel)]="searchStr" (ngModelChange)="onChange($event)" [attr.name]="inputName" [placeholder]="placeholder"
                 [attr.maxlength]="maxChars" [tabindex]="fieldTabindex" [disabled]="disableInput"
                 [clearSelected]="clearSelected" [clearUnselected]="clearUnselected"
