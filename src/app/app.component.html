@@ -23,9 +23,13 @@
   </div> -->
 
   <div class="form-group">
-    <neo-completer-mat name='autocomplete' (selected)="onSelected($event)" [clearSelected]="false" [appearance]="'outline'"
-      [placeholder]="'Write a name'" [autofocus]="true" [(ngModel)]="searchStr" [datasource]="searchData"
-      [minSearchLength]="2">
+    <neo-completer-mat name='autocomplete' (selected)="onSelected($event)" [clearSelected]="false"
+      [appearance]="'outline'" [placeholder]="'Write a name'" [autofocus]="true" [(ngModel)]="searchStr"
+      [datasource]="searchData" [minSearchLength]="2">
+    </neo-completer-mat>
+    <neo-completer-mat name='autocomplete' (selected)="onSelected($event)" [clearSelected]="false"
+      [appearance]="'outline'" [placeholder]="'Write a name'" [autofocus]="true" [(ngModel)]="searchStr2"
+      [datasource]="searchData" [minSearchLength]="2">
     </neo-completer-mat>
   </div>
 

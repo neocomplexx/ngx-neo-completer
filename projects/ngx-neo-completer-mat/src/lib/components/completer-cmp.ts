@@ -69,7 +69,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
         </div>
         <div *ngIf="originalObject" class="completer-holder">
             <mat-chip-list>
-                <mat-chip [disabled]="disableInput" [selectable]="true" [removable]="true" (removed)="removeItem()">
+                <mat-chip id="chip-badge" [disabled]="disableInput" [selectable]="true" [removable]="true" (removed)="removeItem()">
                     <span class="">{{searchStr}}</span>
                     <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
@@ -123,6 +123,7 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     @ViewChild('ctrInput', { static: true }) public ctrInput: ElementRef;
 
     public searchStr = '';
+    public searchStr2 = '';
     public control = new FormControl('');
     public displaySearching = true;
     public displayNoResults = true;

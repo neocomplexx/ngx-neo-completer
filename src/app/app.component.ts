@@ -8,9 +8,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   // tslint:disable-next-line:max-line-length
-  protected searchData = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock','Spock','Spock','Spock','Spock','Spock','Spock','Spock','Spock','Spock','Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett' ];
+  protected searchData = ['James T. Kirk', 'Benjamin Sisko', 'Jean-Luc Picard', 'Spock', 'Spock', 'Spock', 'Spock', 'Spock', 'Spock', 'Spock', 'Spock', 'Spock', 'Spock', 'Spock', 'Jonathan Archer', 'Hikaru Sulu', 'Christopher Pike', 'Rachel Garrett'];
 
-  public searchStr: string;
+  public searchStr: string = 'James T. Kirk';
 
   constructor() { }
 
