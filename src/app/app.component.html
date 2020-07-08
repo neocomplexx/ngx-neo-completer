@@ -22,15 +22,25 @@
     </div>
   </div> -->
 
-  <div class="form-group">
-    <neo-completer-mat name='autocomplete' (selected)="onSelected($event)" [clearSelected]="false"
-      [appearance]="'outline'" [placeholder]="'Write a name'" [autofocus]="true" [(ngModel)]="searchStr"
-      [datasource]="searchData" [minSearchLength]="2">
-    </neo-completer-mat>
-    <neo-completer-mat name='autocomplete' (selected)="onSelected($event)" [clearSelected]="false"
-      [appearance]="'outline'" [placeholder]="'Write a name'" [autofocus]="true" [(ngModel)]="searchStr2"
-      [datasource]="searchData" [minSearchLength]="2">
-    </neo-completer-mat>
-  </div>
+  <form #testForm="ngForm">
+    <input matInput [autofocus]="true"/>
+    <div class="form-group">
+      <neo-completer-mat name='autocomplete1' (selected)="onSelected($event)" [clearSelected]="false" required disabled="true"
+        [appearance]="'outline'" [placeholder]="'Write a name'" [(ngModel)]="searchStr"
+        [datasource]="searchData" [minSearchLength]="2" [form]="testForm">
+      </neo-completer-mat>
+      <neo-completer-mat name='autocomplete2' (selected)="onSelected($event)" [clearSelected]="false" required
+        [appearance]="'outline'" [placeholder]="'Write a name'" [(ngModel)]="searchStr1"
+        [datasource]="searchData" [minSearchLength]="2" [form]="testForm">
+      </neo-completer-mat>
+    </div>
+    <button (click)="checkValid()">Mark all</button>
+    <p>{{testForm.valid}}</p>
+  </form>
+
+  <neo-completer-mat name='autocomplete3' (selected)="onSelected($event)" [clearSelected]="false" 
+    [appearance]="'outline'" [placeholder]="'Write a name'" [(ngModel)]="searchStr1" disabled="true"
+    [datasource]="searchData" [minSearchLength]="2">
+  </neo-completer-mat>
 
 </div>

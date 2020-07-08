@@ -3,7 +3,7 @@ import {
     AfterViewChecked, ChangeDetectorRef, Component, Input, Output, EventEmitter,
     OnInit, ViewChild, forwardRef, AfterViewInit, ElementRef
 } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, Validators, NgForm } from '@angular/forms';
 
 import { CtrCompleter } from '../directives/ctr-completer';
 import { CompleterData } from '../services/completer-data';
@@ -27,14 +27,15 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
     <mat-form-field [ngClass]="formFieldClass" [appearance]="appearance">
         <mat-label *ngIf="appearance">{{placeholder}}</mat-label>
         <div class="completer-holder" ctrCompleter>
-            <input #ctrInput [class.none-display]="originalObject" [required]="required" matInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
+            <input #ctrInput [class.none-display]="completerItem" [required]="required" matInput [attr.id]="inputId.length > 0 ? inputId : null" type="search" class="completer-input" ctrInput [ngClass]="inputClass"
                 [(ngModel)]="searchStr" (ngModelChange)="onChange($event)" [attr.name]="inputName" [placeholder]="placeholder"
-                [attr.maxlength]="maxChars" [tabindex]="fieldTabindex" [disabled]="disableInput"
-                [clearSelected]="clearSelected" [clearUnselected]="clearUnselected"
+                [attr.maxlength]="maxChars" [tabindex]="fieldTabindex" [disabled]="ctrInputHidden.disabled"
+                [clearSelected]="clearSelected" [clearUnselected]="clearUnselected" 
                 [overrideSuggested]="overrideSuggested" [openOnFocus]="openOnFocus" [fillHighlighted]="fillHighlighted"
                 [openOnClick]="openOnClick" [selectOnClick]="selectOnClick" [autoSelectOnEnter]="autoSelectOnEnter"
                 (blur)="onBlur()" (focus)="onFocus()" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" (click)="onClick($event)"
                 autocomplete="off" autocorrect="off" autocapitalize="off" />
+            <input #ctrInputHidden [class.none-display]="true" matInput [formControl]="control"/>
             <div class="completer-dropdown-holder"
                 *ctrList="dataService;
                     minSearchLength: minSearchLength;
@@ -67,10 +68,10 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
                 </div>
             </div>
         </div>
-        <div *ngIf="originalObject" class="completer-holder">
-            <mat-chip-list>
-                <mat-chip id="chip-badge" [disabled]="disableInput" [selectable]="true" [removable]="true" (removed)="removeItem()">
-                    <span class="">{{searchStr}}</span>
+        <div *ngIf="completerItem" class="completer-holder">
+            <mat-chip-list [disabled]="ctrInputHidden.disabled">
+                <mat-chip id="chip-badge" [selectable]="true" [removable]="true" (removed)="removeItem()">
+                    <span class="">{{completerItem?.title}}</span>
                     <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
             </mat-chip-list>
@@ -84,6 +85,7 @@ const COMPLETER_CONTROL_VALUE_ACCESSOR = {
 export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChecked, AfterViewInit {
     @Input() public dataService: CompleterData;
     @Input() public required: boolean;
+    @Input() public name: string;    
     @Input() public inputName = '';
     @Input() public inputId = '';
     @Input() public pause = PAUSE;
@@ -108,6 +110,7 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     @Input() public autoHighlight = false;
     @Input() public autoSelectOnEnter = true;
     @Input() public appearance = '';
+    @Input() public form: NgForm;
 
     @Output() public selected = new EventEmitter<CompleterItem>();
     @Output() public highlighted = new EventEmitter<CompleterItem>();
@@ -123,13 +126,12 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     @ViewChild('ctrInput', { static: true }) public ctrInput: ElementRef;
 
     public searchStr = '';
-    public searchStr2 = '';
     public control = new FormControl('');
     public displaySearching = true;
     public displayNoResults = true;
     public _textNoResults = TEXT_NO_RESULTS;
     public _textSearching = TEXT_SEARCHING;
-    public originalObject: any;
+    public completerItem: CompleterItem;
 
     private _onTouchedCallback: () => void = noop;
     private _onChangeCallback: (_: any) => void = noop;
@@ -140,14 +142,14 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
 
     constructor(private completerService: CompleterService, private cdr: ChangeDetectorRef) { }
 
-    get value(): any { return this.searchStr; }
+    get value(): string | CompleterItem { return (this.completerItem) ? this.completerItem.originalObject : this.searchStr; }
 
-    set value(v: any) {
-        if (v !== this.searchStr) {
+    set value(v: CompleterItem | string ) {
+        if (typeof (v) === 'string') {
             this.searchStr = v;
+        } else {
+            this.completerItem = v;
         }
-        // Propagate the change in any case
-        this._onChangeCallback(v);
     }
 
     public ngAfterViewInit() {
@@ -157,10 +159,6 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     }
 
     public ngAfterViewChecked(): void {
-        if (this._onlyOnInit && this.searchStr && this.searchStr.length > 0 && !this.originalObject) {
-            this._onlyOnInit = false;
-            setTimeout(() => this.originalObject = this.searchStr, 10);
-        }
         if (this._focus) {
             setTimeout(
                 () => {
@@ -179,7 +177,13 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     }
 
     public writeValue(value: any) {
-        this.searchStr = value;
+        if (value && (value.id  === 0 || value.id  === 0)) value = null;
+        if (value && this.dataService.convertToItem) {
+            this.completerItem = this.dataService.convertToItem!(value) as CompleterItem;
+            this.searchStr = this.completerItem.title;
+        } else {
+            this.completerItem = null;
+        }
     }
 
     public registerOnChange(fn: any) {
@@ -192,6 +196,13 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
 
     public setDisabledState(isDisabled: boolean): void {
         this.disableInput = isDisabled;
+        if (!this.form) {
+            if (isDisabled) {
+                this.control.disable({onlySelf: false, emitEvent: true});
+            } else {
+                this.control.enable({onlySelf: false, emitEvent: true});
+            }
+        }
     }
 
     @Input()
@@ -224,9 +235,19 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     }
 
     public ngOnInit() {
+        if (<any>this.required === '') this.required = true;
+        if (this.required) {
+            this.control.setValidators(Validators.required);
+        }
+        if (this.form) {
+            this.form.control.addControl(this.name, this.control);
+            this.form.control.get(this.name).updateValueAndValidity();
+        }
+      
         this.completer.selected.subscribe((item: CompleterItem) => {
-            this.originalObject = (item) ? item.originalObject : undefined;
-            if (!this.originalObject) this.searchStr = undefined;
+            this.completerItem = item;
+            if (!this.completerItem) this.searchStr = undefined;
+            this._onChangeCallback((this.completerItem) ? this.completerItem.originalObject : null);
             this.selected.emit(item);
         });
         this.completer.highlighted.subscribe((item: CompleterItem) => {
@@ -239,9 +260,10 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     }
 
     public removeItem() {
-        this.originalObject = undefined;
+        this.completerItem = undefined;
         this.searchStr = undefined;
         this.selected.emit(null);
+        this._onChangeCallback((this.completerItem) ? this.completerItem.originalObject : null);
         setTimeout(() => {
             if (this.ctrInput) {
                 this.ctrInput.nativeElement.focus();
@@ -258,7 +280,7 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
 
     public onFocus() {
         this.focusEvent.emit();
-        this.onTouched();
+        //this.onTouched();
     }
 
     public onClick(event: any) {
@@ -275,7 +297,7 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
         this.keydown.emit(event);
     }
 
-    public onChange(value: string) {
+    public onChange(value: CompleterItem | string) {
         this.value = value;
     }
 
