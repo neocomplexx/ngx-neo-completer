@@ -183,6 +183,7 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
             this.searchStr = this.completerItem.title;
         } else {
             this.completerItem = null;
+            this.searchStr = null;
         }
     }
 
