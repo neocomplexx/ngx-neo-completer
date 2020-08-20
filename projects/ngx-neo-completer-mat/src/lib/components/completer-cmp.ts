@@ -263,8 +263,8 @@ export class CompleterCmp implements OnInit, ControlValueAccessor, AfterViewChec
     public removeItem() {
         this.completerItem = undefined;
         this.searchStr = undefined;
-        this.selected.emit(null);
         this._onChangeCallback((this.completerItem) ? this.completerItem.originalObject : null);
+        this.selected.emit(null);
         setTimeout(() => {
             if (this.ctrInput) {
                 this.ctrInput.nativeElement.focus();

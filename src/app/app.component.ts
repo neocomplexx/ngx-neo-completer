@@ -20,13 +20,14 @@ export class AppComponent {
   }
   public set searchStr1(value: string) {
     this._searchStr1 = value;
-    console.log(this._searchStr1);
+    console.log('searchStr1: ', this._searchStr1);
   }
 
   constructor() { }
 
   public onSelected($event) {
-    console.log($event);
+    console.log('onSelected: ', $event);
+    console.log('onSelected searchStr1: ', this._searchStr1);
   }
 
   public onKeyDown($event) {
